@@ -156,6 +156,12 @@ fn main() {
 
     println!("{}", num);
 
+    flow(3);
+    
+    looper(2121);
+
+    looper2();
+
 }
 
     // FUNCTION
@@ -172,4 +178,44 @@ fn another_function(name: &str) -> i32 { // To return value we must stat type ex
 
 fn times_two_hundred(x: i32) -> i32 {
     x * 200
+}
+
+fn flow (x: i32) {
+    if x < 2 { // condition must be expliticitly a bool
+        println!("less than 2");  
+    } else if x == 3 {
+        println!("it's three");
+    } else{
+        println!("more or the same as 2");
+    }
+
+    let condition = true;
+    let number = if condition {5} else {6}; // must be same type
+
+    println!("{}", number);
+}
+
+fn looper(mut x: i32) {
+    loop {
+        println!("i am infinity");
+        x = x -1 ;
+
+        if x < 0 {
+            break;
+        }
+    }
+}
+
+fn looper2 () {
+    let mut counter = 0;
+
+    let result = loop {
+        counter += 1;
+
+        if counter == 10 {
+            break counter * 2;
+        }
+    };
+
+    println!("The result is {result}");
 }
