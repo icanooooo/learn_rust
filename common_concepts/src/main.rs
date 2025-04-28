@@ -156,12 +156,19 @@ fn main() {
 
     println!("{}", num);
 
+
+    // CONTROL FLOWS
     flow(3);
     
     looper(2121);
 
     looper2();
 
+    looper3();
+
+    while_looper(10);
+
+    for_looper2();
 }
 
     // FUNCTION
@@ -180,6 +187,7 @@ fn times_two_hundred(x: i32) -> i32 {
     x * 200
 }
 
+    // FLOW & LOOPS
 fn flow (x: i32) {
     if x < 2 { // condition must be expliticitly a bool
         println!("less than 2");  
@@ -218,4 +226,54 @@ fn looper2 () {
     };
 
     println!("The result is {result}");
+}
+
+fn looper3() {
+    let mut counter = 0;
+
+    'outside_counter: loop { //kita bisa namain loop kita
+        let mut inside_counter = 0;
+        println!("outer iteration: {}", counter);
+        'inside_counter: loop {
+            inside_counter += 1;
+            
+            if inside_counter == 20 {break 'inside_counter;}
+            if counter == 30 {break 'outside_counter;} // Terus spesifik break terhadap loop
+                                                       // tertentu
+        
+            println!("{}", inside_counter);
+        }
+
+        counter +=1;
+    }
+}
+
+fn while_looper(mut x: i32) {
+    while x!= 0 {
+        println!("{x}");
+
+        x -= 1;
+    }
+
+    println!("LIFT OFF!!");
+}
+/*
+fn for_looper() {
+    let a = [10, 20, 30, 40, 50];
+    let mut index = 0;
+
+    while index < 5 {
+        println!("{}", a[index]);
+    
+        index += 1
+    }
+}
+*/
+    // tapi yang diatas bisa ditulis kaya gini
+fn for_looper2() {
+    let a = [10, 20, 30, 40, 50];
+
+    for x in a {
+        println!("element: {x}")
+    }
 }
