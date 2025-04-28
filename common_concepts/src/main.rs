@@ -135,6 +135,41 @@ fn main() {
     b.push(10);
 
     println!("{}", b[5]);
-    
 
+    // FUNCTIONS
+   
+    let mut input = String::new();
+
+    io::stdin().read_line(&mut input).expect("Cannot readline");
+
+    let test: i32 = another_function(&input); // jangan lupa '&' untuk reference ke var
+    println!("{}", test);
+
+    let m = {
+        let x = 2;
+        x
+    };
+
+    println!("{}", m);
+
+    let num = times_two_hundred(26);
+
+    println!("{}", num);
+
+}
+
+    // FUNCTION
+
+fn another_function(name: &str) -> i32 { // To return value we must stat type ex. "-> i32"
+    println!("Ku suka dirimu, {name}");
+    
+    // Statments: Instructions to perform action that does not return a value
+    let _y = 6;
+
+    // Expression: Evaluate to resultant value
+    _y + 1 // the last line without the ';' will be the return type
+}
+
+fn times_two_hundred(x: i32) -> i32 {
+    x * 200
 }
