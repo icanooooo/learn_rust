@@ -76,10 +76,7 @@ fn main() {
     let r = first_char(&s);
     println!("{r}");
 
-    let string_new = String::from("Let's go to the mall today");
-    let a = slices(&string_new);
-    println!("{a}");
-
+    slices_chapter();
 }   // every variable in main() is dropped
 
 fn nice_function(some_string: String) { // Borrowed the string
@@ -187,4 +184,36 @@ fn first_char(s: &String) -> &str { //this is okay as because it points to a var
 fn slices(s: &String) -> &str { // This is a slice
     &s[1..5] // this is okay to return because it points to an address
              // starting at position number 1 with 5 length
-} 
+}
+
+fn slices_chapter() {
+    let string_new = String::from("Let's go to the mall today");
+    let a = slices(&string_new);
+    println!("{a}");
+
+    let slice = &string_new[3..]; // from 3 until end of collection
+    println!("{slice}");
+
+    let slice = &string_new[..5]; // from index 0 to 5 
+    println!("{slice}");
+
+    let slice = &string_new[..]; // from start to finish 
+    println!("{slice}");
+
+    let a = slices_2(&string_new);
+    println!("{a}");
+    println!("{a}");
+
+    // a can be used multiple time with a reference in this function because it is not mutable,
+    // it's just saving an address
+    let a = [1, 2, 3 ,4 ,5];
+    let slice = &a[1..3]; // remember this contain the address of a
+
+    println!("{}", &slice[1]);
+
+}
+
+fn slices_2(s: &str) -> &str { // This is better because string actually contains an str slice
+                               // internally
+    &s[1..5] 
+}
