@@ -68,6 +68,18 @@ fn main() {
 
     let (_c, _c_length) = get_string_n_lenght(b);
 
+    borrow();
+
+    let s = no_dangle();
+    println!("{s}");
+
+    let r = first_char(&s);
+    println!("{r}");
+
+    let string_new = String::from("Let's go to the mall today");
+    let a = slices(&string_new);
+    println!("{a}");
+
 }   // every variable in main() is dropped
 
 fn nice_function(some_string: String) { // Borrowed the string
@@ -93,3 +105,86 @@ fn get_string_n_lenght(s: String) -> (String, usize) {
 
     (s, length)
 }
+
+fn borrow() {
+    let r = String::from("Kau ambil hatiku!");
+    
+    let r_size = calculate_length(&r); // using 'r' as a reference, it allows to borrow the value
+                                       // without taking ownership of it
+    println!("The size of '{r}' is {r_size}");
+
+    let mut lirik = String::from("Tapi aku tak pernah mati, tak akan");
+
+    finish_lirik(&mut lirik); //you can change the variable by '&mut', which means a mutable
+                              //reference, the borrower can mutate it
+    println!("{lirik}");
+                              //But having multiple mutable references to one values is a no no
+    /*
+    let mut s = String::from("test");
+    let r = &mut s;
+    let x = &mut s; // this is a nono
+    */
+
+    // but u can borrow multiple times if it's not mutable
+    
+    let mut kendrick = String::from("MUSTRAARRD");
+
+    let duckworth = &kendrick;
+    let lamar = &kendrick;
+    // let mut diddy = &mut kendrick; //ini gabisa karena mutable reference gabisa sharing
+
+    println!("{kendrick} {lamar} {duckworth}"); //gini bisa
+                                                //                                               //
+    kendrick.push_str("dj"); // Ketika sudah dimutate 'duckworth' and 'lamar' udah gabisa diborrow
+                             // lagi. Karena sudah di immutable borow sama argument `push_str`.
+
+    println!("{kendrick}"); // jika menggunakan 'duckworth' and 'lamar', akan error. 
+
+    let jcole = &kendrick;
+
+    println!("{jcole}"); // 'jcole' bisa digunakan karena mutable reference sudah dibuang karena
+                         // diluar scope functionnya.
+    
+    finish_lirik(&mut kendrick); // disini 'jcole' berhenti bisa digunakan karena 'kendrick'
+                                 // diborrow dengan mutable reference
+    println!("{kendrick}");
+
+    // So in short we can use multiple reference towards a variable, but we reference it with
+    // mutability the previous reference cannot be used again.
+    // It's okay to mutable reference if it's in different scope, because once the scope is
+    // finished it will be dropped
+}
+
+
+fn calculate_length(s: &String) -> usize { // Rather than taking the ownership 's' borrows it
+    s.len()// return the length of the string
+}
+
+fn finish_lirik(s: &mut String) { // Borrowing the arguments and mutate it need the '&mut'
+                                  // statement
+    s.push_str(" berhenti");    
+}
+
+// Dangling reference is a reference of a memory that is not used anymores
+// so if you returning something from a function don't let it be a reference if the variable is
+// dropped out of the scope
+//
+// it's better to return directly the Variable
+
+fn no_dangle() -> String{
+    String::from("hellow") // don't return a reference except the variable of the reference is
+                           // still ther
+}
+
+fn first_char(s: &String) -> &str { //this is okay as because it points to a variable that is still
+                                    //exis from out of this scope
+                                    //this is a slice
+    &s[0..1]
+}
+
+// Slices are references that borrow a portion of a collection without taking ownership,
+// Internally a pointer to the start and length
+fn slices(s: &String) -> &str { // This is a slice
+    &s[1..5] // this is okay to return because it points to an address
+             // starting at position number 1 with 5 length
+} 
