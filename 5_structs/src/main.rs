@@ -66,6 +66,19 @@ struct Rectangle {          // The Rectangle Struct have the Trait now
     width: u32,
 }
 
+// USING METHODS
+
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height
+
+    }
+
+    fn can_hold(&self, other: &Rectangle) -> bool {     // Borrowing from other rectangles
+        self.width > other.width && self.height > other.height
+    }
+}           // we can have multiple impl for one Struct, the use case for that is in chapter 10
+
 fn example() {
     {
         let width1 = 30;            // Rather than doing this, we could use tuples 
@@ -86,6 +99,13 @@ fn example() {
     println!("{rect:#?}");      // We ara able to use rect:? and rect:#? for debugging
     dbg!(&rect);                // and we are able to use dbg!
                                 // There are number of traits we can derive from
+
+    println!("the area is {}", rect.area());    // Implementing methods given to the struct
+
+    let rect2 = Rectangle { height: 40, width: 70 };
+
+    println!("Can rect2 hold rect? {}", rect2.can_hold(&rect));
+
 }
 
 fn area(width: u32, height:u32) -> u32{
