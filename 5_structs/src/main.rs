@@ -38,12 +38,14 @@ fn main() {
     let black = Color(0,0,0);       // Each is their own type
     let origin = Point(0, 0, 0);
 
-    // to remove warning
     println!("{}, {}, {}, {}, {}, {}", black.0,black.1,black.2,
              origin.0, origin.1, origin.2);
     
     // UNIT-LIKE STRUCTURE
     let _admin = AlwaysEqual;        // Used for implementing trait (More on Chapter 10) 
+
+    // EXAMPLE PROGRAM USING STRUCTS
+    example()
 }
 
 // BUILDING A STRUCT BUILDER FUNCTION 
@@ -54,6 +56,48 @@ fn build_user(email: String, username: String) -> User {
         email,
         sign_in_count: 1,
     }
+}
+
+// EXAMPLE SECTION
+
+#[derive(Debug)]            // Deriving trait from debug, enable us to use rect:? and rect:#?
+struct Rectangle {          // The Rectangle Struct have the Trait now
+    height: u32,
+    width: u32,
+}
+
+fn example() {
+    {
+        let width1 = 30;            // Rather than doing this, we could use tuples 
+        let height1 = 50;
+
+        println!("the area is {}",area(width1, height1));
+    }
+    
+    // REFACTORING WITH TUPLES
+    let rect = (30, 50);                        // Much more readble
+    println!("the area is {}", area2(rect));    // using tuples directly to the function 
+
+    // REFACTORING WITH STRUCTS
+    let rect = Rectangle { height: 30, width: 50 }; // More understandable  
+    println!("the area is {}", area3(&rect)); 
+
+    // DERIVING TRAIT FROM DEBUG
+    println!("{rect:#?}");      // We ara able to use rect:? and rect:#? for debugging
+    dbg!(&rect);                // and we are able to use dbg!
+                                // There are number of traits we can derive from
+}
+
+fn area(width: u32, height:u32) -> u32{
+    width * height
+}
+
+fn area2(dimensions: (u32, u32)) -> u32{    // more readable using tuple structs
+    dimensions.0 * dimensions.1
+}
+
+fn area3(rectangle: &Rectangle) -> u32 {    // much more readable labels
+    rectangle.width * rectangle.height
 }
 
 // NOTES
