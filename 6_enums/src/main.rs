@@ -52,6 +52,9 @@ fn main() {
     option_enum_example();
 
     match_section();
+
+    if_else_let_section();
+ 
 }
 
 fn option_enum_example() {
@@ -123,4 +126,99 @@ fn match_section(){
     let icanos_coin = Coin::Quarter;
     
     println!("ican's coin is worth {} cents", value_in_cents(icanos_coin));
+
+    enum Status {
+        Laper,
+        Kenyang,
+    }
+
+    let ican_status = Status::Laper;
+
+    match ican_status {
+        Status::Laper => { println!("Tambah lagi nasinya") },
+        Status::Kenyang => { println!("Gabakal lagi gua makan selamanya") },
+    }
+}
+
+fn if_else_let_section () {                     // Helps us to us match on specific variant values
+    // Withouf if let
+    
+    let config_max = Some(3u8);
+    //    EXPRESSION
+    match config_max {
+    //  PATTERN 
+        Some(max) => {println!("The {max}")},
+        _ => (),
+    }
+
+    // Is equal to (using if let)
+
+    //     PATTERN     EXPRESSION
+    if let Some(max) = config_max {             // Helps us to write match on only specific
+                                                // variants
+        println!("The true {max}");
+    }
+
+    // the use of 'else'
+
+    let config_min: Option<u32> = None;
+
+    if let Some(someshit) = config_min {             
+       println!("The true {someshit}");
+    } else {                                        // You can also use 
+        println!("this is the same as using '_'");  // 'else if let PATTERN = VALUE for another'
+                                                    // specific variant
+    }
+
+    let ican_coin = Coin::Quarter(UsState::Alabama);
+
+    let coin_status = describe_state_quarter(ican_coin); 
+
+    if let Some(result) = coin_status { println!("{}", result); }
+}
+
+// FOR LAST EXAMPLE
+#[derive(Debug)]
+enum UsState {
+    Alabama,
+    Alaska,
+}
+
+enum Coin {
+    Penny,
+    Nickle,
+    Dime,
+    Quarter(UsState),       // You can use an enum inside an enum
+}
+
+impl UsState {
+    fn existed_in(&self, year: u32) -> bool {
+        match self {
+            UsState::Alabama => year >= 1819,
+            UsState::Alaska => year >=1959,
+        }
+    }
+}
+
+fn describe_state_quarter(coin: Coin) -> Option<String> {
+    // Ingin menarik UsState dari Coin::Quarter
+    let Coin::Quarter(state) = coin else {          //if exist, assign UsState into a 'state'
+       return None;                                 //variable in the parenthases 
+    };
+
+    /* above is the sama as below
+    
+    let state = if let Coin::Quarter(state) = coin {
+        state
+    } else {
+        return None
+    };
+
+    */
+
+    if state.existed_in(1900) {
+        Some(format!("{state:?} is pretty old"))
+    } else {
+        Some(format!("{state:?} is relativly new"))
+    } 
 }
