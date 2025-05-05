@@ -104,4 +104,4 @@ crate
 
 It's structured nicely so we can know each module relation with each other. `hosting` and `serving` are different modules with each of their own submodules, but they're sibling and have the same parents, `front_of_house`. Essentially modules help use to make projects and programs that are easier to organize.
 
-
+## Paths
