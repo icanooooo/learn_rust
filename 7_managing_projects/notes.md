@@ -66,5 +66,42 @@ project/
     ├── main.rs                 # running our main
     └── garden.rs               # importing submodule for Vegetables 
 ```
+### Why use modules?
+
+So essentially, modules helps us to organize code in a better way. Making each modules able to work together without interfiring with each other. The module example below can be an example:
+
+```
+mod front_of_house {
+    mod hosting {
+        fn add_to_waitlist() {}
+
+        fn seat_at_table() {}
+    }
+    
+    mod serving {
+        fn take_order() {}
+
+        fn serve_order() {}
+
+        fn take_payment() {}
+    }
+}
+```
+
+The module above is structured in a tree structure, we called a *module tree*. 
+
+```
+crate
+ └── front_of_house
+     ├── hosting
+     │   ├── add_to_waitlist
+     │   └── seat_at_table
+     └── serving
+         ├── take_order
+         ├── serve_order
+         └── take_payment
+```
+
+It's structured nicely so we can know each module relation with each other. `hosting` and `serving` are different modules with each of their own submodules, but they're sibling and have the same parents, `front_of_house`. Essentially modules help use to make projects and programs that are easier to organize.
 
 
