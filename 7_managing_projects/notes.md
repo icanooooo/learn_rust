@@ -41,8 +41,30 @@ Modules are a way to organize code into namespace, making large program more man
 Before we go further, it's good to show how the compiler work and process in a project and how most developers organize their code.
 
 - The compiler first looks in the ***Crate Root*** for the code to compile, either *src/lib.rs* or *src.main.rs*.
-- The in the *Crate Root* File, we can declare new modules (example, declaring a garden modul with `mod garden;`. The compiler then will look for the modul in this places:
+- Then in the *Crate Root* File, we can declare new modules (example, declaring a garden modul with `mod garden;`. The compiler then will look for the modul in this places:
     - Inline, in the curly brackets `{}` that replace the semicolon after declaring `mod garden`. (if written).
     - In the file *src/garden.rs*
     - In the file *src/garden/mod.rs*
+- We can also write a ***Submodules***, (example: `mod vegetables;`) in *src/garden.rs*, the compiler will then look it in the
+    - Inline, in the curly brackets `{}` that replace the semicolon after declaring `mod vegetables`. (if written).
+    - In the file *src/garden/vegetables.rs*
+    - In the file *src/garden/vegetables/mod.rs*
+- Once the module is part of our crate, we can **get the piece of code we want** anywhere in the same crate (as long privacy rules allow). For example, we want to acces an `Asparagus` type in the garden vegetables module, we can get it using `crate::garden::vegetables::Asparagus`.
+- We can use the **`use` keyword** to shorten what we want to refer, rather than using the previous code to refer, we can write it like `use crate::garden::vegetables::Asparagus;` once and then we only need to write `Asparagus` so on.
+- To control the privacy of the modules, we can declare it with **`pub mod`** to make it *public*, and **`mod`** to make it privated. Please note the module will follow the privacy of the the parent module by default. To make the items withe the module also public, use the `pub` keyword before the declaration.
+
+Please see code and project for example.
+
+So in the project, using the example above we create an item (`Asparagus`) in the submodule of `vegetables` in the module of `gardes`. Create the file directory as below:
+
+```
+project/
+├── Cargo.toml
+└── src/
+    ├──Garden/
+    |   └── vegetables.rs       # struct Vegetables {} 
+    ├── main.rs                 # running our main
+    └── garden.rs               # importing submodule for Vegetables 
+```
+
 
