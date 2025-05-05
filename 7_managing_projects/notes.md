@@ -105,3 +105,9 @@ crate
 It's structured nicely so we can know each module relation with each other. `hosting` and `serving` are different modules with each of their own submodules, but they're sibling and have the same parents, `front_of_house`. Essentially modules help use to make projects and programs that are easier to organize.
 
 ## Paths
+
+To show rust where to find an item in a module tree, we use the same path we use for the filesystem. A path can take two forms
+- *absolute paths* full path starting from the *crate root*. (Not your system root obviously). Starts with the literal `crate`.
+- and a *relative path*, starts from the current module and uses `super`, `self`, and an identifier in the current module.
+
+They are followed by double collons `::`.
