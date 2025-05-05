@@ -31,3 +31,18 @@ project/
     ├── tool1.rs          # crate root for binary "tool1"
     └── tool2.rs          # crate root for binary "tool2"
 ```
+
+## **Modules**
+
+Modules are a way to organize code into namespace, making large program more manageable and avoid naming conflicts. Modules allow you to group related code blocks (Function, Structs, Enums, Constants, etc) together.
+
+### Cheat Sheet
+
+Before we go further, it's good to show how the compiler work and process in a project and how most developers organize their code.
+
+- The compiler first looks in the ***Crate Root*** for the code to compile, either *src/lib.rs* or *src.main.rs*.
+- The in the *Crate Root* File, we can declare new modules (example, declaring a garden modul with `mod garden;`. The compiler then will look for the modul in this places:
+    - Inline, in the curly brackets `{}` that replace the semicolon after declaring `mod garden`. (if written).
+    - In the file *src/garden.rs*
+    - In the file *src/garden/mod.rs*
+
