@@ -2,4 +2,4 @@ pub mod vectorz;
 
 pub mod stringz;
 
-pub mod valetz;
+pub mod hashmaps;
