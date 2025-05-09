@@ -35,4 +35,41 @@ pub fn strings_example() {
 
     println!("{full}");
     println!("{a}");                                // 'a' still exist
+
+    // In rust, String is a wrapper over a u8 Vector
+    let hello = String::from("Hello");
+    println!("{}", hello.len());                    // This will result in 5 length.
+                                                    // Each char have 1 bytes
+    let hello_in_russia = String::from("Здравствуйте");
+    println!("{}", hello_in_russia.len());          // This have 24 Length!?
+                                                    // This is because each Unicode scalar value in
+                                                    // the string take 2 bytes of storages.
+                                                    // (Because non-ASCII).
+
+    // Therefore we can't index it like hello_in_russia[0] or hello[3], it will create a compile
+    // time error.
+
+    let hindi_word = "नमस्ते";                        // Even this 4 character in hindi:
+    println!("{}", hindi_word.len());               // Is 18 bytes
+
+    // println!("{}", &hindi_word[0..2]);           Do this with caution, slicing strings with
+                                                    // ranges could crash our program
+    // Methods to reiterating a string
+    for c in hindi_word.chars() {                   // reiterating in per-character
+        println!("{}", c);
+    }
+
+    for c in hindi_word.bytes() {                   // reiterating it per-bytes
+        println!("{}", c);
+    }
 }
+
+
+
+
+
+
+
+
+
+
