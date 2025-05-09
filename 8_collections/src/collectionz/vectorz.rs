@@ -4,7 +4,7 @@ use std::fmt;
 //     "This is a test".to_string()    
 // }
 
-pub fn collections_example() {
+pub fn vectors_example() {
     // VECTORS
     let mut v: Vec<i32> = Vec::new();           // Creating an empty vector that hold i32 type
 
