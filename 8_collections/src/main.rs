@@ -1,3 +1,6 @@
+mod collectionz;
+use crate::collectionz::vectorz;
+
 fn main() {
-    println!("Hello, world!");
+    vectorz::collections_example();
 }
