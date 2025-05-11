@@ -62,9 +62,9 @@ pub fn type_example() {
     let rumah_alvin = coordinates {x: 10, y: 10};       // bahkan bisa sama juga sich
 
     // Bahkan bisa lebih banyak jika mau nambahin <T, U, ....so on...>
-    let rumah_cholil_erk = coordinates_w_lat {x: 20, y: 3.4234234, z:"Tinggi banget dah pokoknya"};
+    let rumah_david_gilmour = coordinates_w_lat {x: 20, y: 3.4234234, z:"Tinggi banget dah pokoknya"};
 
-    println!("ketinggian rumah cholil erk: {}", rumah_cholil_erk.z());
+    println!("ketinggian rumah david gilmour: {}", rumah_david_gilmour.z());
 
     // implement method jarak (buat ego gua aja bisa buat)
     let rumah_ale = coordinates_true { x: 2.434, y: 3.5304 };
