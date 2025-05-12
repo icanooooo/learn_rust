@@ -1,3 +1,7 @@
+use std::fmt::Display;
+use std::cmp::PartialOrd;
+
+// Building a Trait
 pub trait Summary {
     // ???
     fn summarize_author(&self) -> String;
@@ -14,6 +18,7 @@ pub struct NewsArticle {
     pub content: String,
 }
 
+// Implementing the Trait for a Struct
 impl Summary for NewsArticle {
     fn summarize_author(&self) -> String {
         format!("{}", self.author)
@@ -30,6 +35,8 @@ pub struct Tweet {
     pub retweet: bool,
 }
 
+// Again implementing a trait fro the Tweet Struct
+// Tweet and NewsArticle share the same struct
 impl Summary for Tweet {
     fn summarize_author(&self) -> String {
         format!("{}", self.author)
@@ -39,6 +46,27 @@ impl Summary for Tweet {
     }
 }
 
-pub fn notify(media: &impl Summary) {
-    println!("Breaking news! {}", media.summarize());
+pub struct Pair<T> {
+    pub x: T,
+    pub y: T,
 }
+
+// Can be used if T is any type
+impl<T> Pair<T> {
+    pub fn get_x(&self) -> &T {
+        &self.x
+    }
+}
+
+// Only can be use used if T is Display or PartialOrd
+impl <T: Display + PartialOrd> Pair <T> {
+    pub fn cmp_display(&self) {
+        if self.x >= self.y {
+            println!("{}", self.x)
+        } else {
+            println!("{}", self.y)
+        }
+    }
+}
+
+
