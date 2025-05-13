@@ -10,9 +10,9 @@ use std::fmt::{Display, Debug};
 fn main() {
     types::type_example();
 
-    traits_example() 
+    traits_example(); 
 
-    // lifetimes::LifetimesExample();
+    lifetimes::lifetimes_example();
 }
 
 fn traits_example() {
